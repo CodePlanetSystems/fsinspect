@@ -14,8 +14,20 @@ if (file_exists($makeScriptPath) === false) {
     }
 }
 
-print $makeScriptPath . PHP_EOL;
-print realpath($makeScriptPath) . PHP_EOL;
+$makeScriptPath = realpath($makeScriptPath);
+
+if ($makeScriptPath === false || $makeScriptPath === null) {
+    print "Aborting build, script path was invalid " . $makeScriptPath . PHP_EOL;
+    print PHP_EOL;
+    exit(1);
+}
+
+$mDir = realpath(dirname($makeScriptPath));
+$rDir = realpath($mDir . "/..");
+$sDir = realpath($rDir . "/src");
+$bDir = realpath($rDir . "/build");
+
+
 
 
 //$makeDirectory = dirname($makeScriptPath);
